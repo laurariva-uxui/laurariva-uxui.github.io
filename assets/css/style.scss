@@ -445,10 +445,10 @@ html {
   flex-shrink: 0;
   transition: transform 0.3s ease, background-color 0.3s ease;
 
-  
+
 
   &.active-dot { background-color: $interactive-default; }
-  &.last-dot { background-color: $interactive-disabled; }
+  &.last-dot { background-color: $interactive-default; }
 
 
   &:hover {
