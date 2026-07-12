@@ -467,8 +467,8 @@ html {
     box-sizing: border-box;
   }
   .dot {
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
     margin-top: calc(var(--y) * 0.6);
   }
   .timeline-popup {
