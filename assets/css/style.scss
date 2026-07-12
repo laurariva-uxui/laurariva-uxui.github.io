@@ -447,7 +447,7 @@ html {
 
 
   &.active-dot { background-color: $interactive-default; }
-  &.last-dot { background-color: $interactive-disabled; }
+  &.last-dot { background-color: $interactive-default; }
 
 
   &:hover {
