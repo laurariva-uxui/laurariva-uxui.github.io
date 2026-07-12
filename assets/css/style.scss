@@ -396,7 +396,7 @@ html {
     opacity: 1;
   }
   50% {
-    opacity: 0.4; /* Si sbiadisce delicatamente a metà */
+    opacity: 0.35; /* Si sbiadisce quanto basta per far capire che è interattivo */
   }
   100% {
     opacity: 1;
@@ -457,17 +457,23 @@ html {
   flex-shrink: 0;
   transition: transform 0.3s ease, background-color 0.3s ease;
 
-  // Attiva il lampeggio di base su tutti i cerchi
-  animation: softPulse 2s infinite ease-in-out;
+  // Applichiamo il lampeggio direttamente a tutti i pallini
+  animation: softPulse 2.5s infinite ease-in-out;
 
-  &.active-dot { background-color: $interactive-default; }
-  &.last-dot { background-color: $interactive-disabled; }
+  &.active-dot { 
+    background-color: $interactive-default; 
+  }
+  
+  &.last-dot { 
+    background-color: $interactive-disabled; 
+  }
 
+  // Quando l'utente passa il mouse sopra, il cerchio smette di lampeggiare e si ingrandisce
   &:hover { 
-    animation: none; /* Ferma il lampeggio quando ci passi sopra */
+    animation: none; 
     transform: scale(1.2); 
     background-color: $interactive-hover;
-    opacity: 1 !important; /* Forza l'opacità al massimo all'hover */
+    opacity: 1 !important; /* Forza la visibilità al 100% al passaggio del mouse */
     
     .timeline-popup {
       opacity: 1;
@@ -477,7 +483,7 @@ html {
   }
 
   &.is-open {
-    animation: none; /* Ferma il lampeggio se il popup è bloccato aperto */
+    animation: none;
     opacity: 1 !important;
     
     .timeline-popup {
