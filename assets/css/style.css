@@ -460,9 +460,8 @@ html {
     align-items: center;
   }
   .timeline-container {
-    padding: 40px 20px 160px;
+    padding: 40px 0px 160px;
     box-sizing: border-box;
-    width: 100%;
   }
   .dot {
     width: 32px;
