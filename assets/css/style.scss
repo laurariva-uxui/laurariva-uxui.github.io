@@ -388,25 +388,7 @@ html {
 
 
 
-// ==========================================
-// 1. ANIMAZIONE (SOLO OPACITÀ PER EVITARE CONFLITTI)
-// ==========================================
-@keyframes softPulse {
-  0% {
-    filter: opacity(100%);
-  }
-  50% {
-    filter: opacity(35%); /* Crea il lampeggio senza toccare la geometria del cerchio */
-  }
-  100% {
-    filter: opacity(100%);
-  }
-}
-
-// ==========================================
-// 2. GRAFICO PRINCIPALE
-// ==========================================
-
+// GRAFICO
 .timeline-container {
   position: relative;
   display: flex;
@@ -418,16 +400,19 @@ html {
   padding: 40px 0 160px;
   overflow: visible !important;
 
+
   &.is-active .dot:not(.is-open) .timeline-popup {
     display: none !important;
   }
 }
 
+
 .story-path h5 {
-  margin-bottom: 60px; 
+  margin-bottom: 60px;
   text-align: center;
   width: 100%;
 }
+
 
 .timeline-svg {
   position: absolute;
@@ -440,12 +425,14 @@ html {
   overflow: visible;
   display: block !important;
 
+
   line {
-    stroke: $text; 
+    stroke: $text;
     stroke-width: 1px;
     stroke-linecap: round;
   }
 }
+
 
 .dot {
   width: 30px;
@@ -458,24 +445,15 @@ html {
   flex-shrink: 0;
   transition: transform 0.3s ease, background-color 0.3s ease;
 
-  // Forza l'esecuzione dell'animazione fin dall'inizio
-  animation: softPulse 2.5s infinite ease-in-out !important;
 
-  &.active-dot { 
-    background-color: $interactive-default; 
-  }
-  
-  &.last-dot { 
-    background-color: $interactive-disabled; 
-  }
+  &.active-dot { background-color: $interactive-default; }
+  &.last-dot { background-color: $interactive-disabled; }
 
-  // Quando l'utente passa il mouse sopra, il cerchio smette di lampeggiare e si ingrandisce
-  &:hover { 
-    animation: none !important; 
-    transform: scale(1.2); 
+
+  &:hover {
+    transform: scale(1.2);
     background-color: $interactive-hover;
-    filter: opacity(100%) !important;
-    
+   
     .timeline-popup {
       opacity: 1;
       visibility: visible;
@@ -483,34 +461,31 @@ html {
     }
   }
 
-  // Quando il popup è aperto (click), rimuove il lampeggio per non disturbare la lettura
-  &.is-open {
-    animation: none !important;
-    filter: opacity(100%) !important;
-    
-    .timeline-popup {
-      opacity: 1;
-      visibility: visible;
-      top: 55px;
-    }
+
+  &.is-open .timeline-popup {
+    opacity: 1;
+    visibility: visible;
+    top: 55px;
   }
 }
 
+
 .timeline-popup {
   position: absolute;
-  top: 45px; 
-  width: clamp(180px, 25vw, 240px); 
-  max-width: 90vw; 
+  top: 45px;
+  width: clamp(180px, 25vw, 240px);
+  max-width: 90vw;
   background: $light-bg;
   padding: 15px;
-  border-radius: 10px; 
+  border-radius: 10px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.12);
-  border: 1px solid rgba(63, 111, 74, 0.15); 
+  border: 1px solid rgba(63, 111, 74, 0.15);
   z-index: 100;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
 
   p {
     margin: 0;
@@ -520,23 +495,26 @@ html {
     text-align: center;
   }
 
+
   &::before {
     content: '';
     position: absolute;
-    top: -8px; 
+    top: -8px;
     border-left: 8px solid transparent;
     border-right: 8px solid transparent;
-    border-bottom: 8px solid $light-bg; 
-    filter: drop-shadow(0 -2px 2px rgba(0,0,0,0.05)); 
+    border-bottom: 8px solid $light-bg;
+    filter: drop-shadow(0 -2px 2px rgba(0,0,0,0.05));
   }
 }
+
 
 .dot:nth-child(2) .timeline-popup,
 .dot:nth-child(3) .timeline-popup {
   left: 0;
-  transform: translateX(-10px); 
+  transform: translateX(-10px);
   &::before { left: 15px; }
 }
+
 
 .dot:nth-child(4) .timeline-popup {
   left: 50%;
@@ -544,17 +522,17 @@ html {
   &::before { left: 50%; transform: translateX(-50%); }
 }
 
+
 .dot:nth-child(5) .timeline-popup,
 .dot:nth-child(6) .timeline-popup {
   left: auto;
-  right: 0; 
-  transform: translateX(10px); 
+  right: 0;
+  transform: translateX(10px);
   &::before { left: auto; right: 15px; }
 }
 
-// ==========================================
-// 3. RESPONSIVE
-// ==========================================
+
+// RESPONSIVE
 @media (max-width: 900px) {
   .story-path {
     width: 100%;
@@ -563,23 +541,26 @@ html {
     align-items: center;
   }
 
+
   .timeline-container {
     padding: 40px 0px 160px;
     box-sizing: border-box;
   }
 
+
   .dot {
     width: 24px;
     height: 24px;
-    margin-top: calc(var(--y) * 0.6); 
-    animation: softPulse 2.5s infinite ease-in-out !important; 
+    margin-top: calc(var(--y) * 0.6);
   }
+
 
   .timeline-popup {
     width: 200px;
     padding: 10px;
-    
+   
     p { font-size: 13px; }
+
 
     &.is-open {
       opacity: 1 !important;
@@ -588,25 +569,30 @@ html {
     }
   }
 
+
   .dot:nth-child(2) .timeline-popup,
   .dot:nth-child(3) .timeline-popup {
-    left: -5px; 
+    left: -5px;
     transform: translateX(0);
     &::before { left: 12px; }
   }
 
+
   .dot:nth-child(5) .timeline-popup,
   .dot:nth-child(6) .timeline-popup {
-    right: -5px; 
+    right: -5px;
     transform: translateX(0);
     &::before { right: 12px; }
   }
 }
 
+
 @media (max-width: 380px) {
   .timeline-container { padding-inline: 15px; }
   .timeline-popup { width: 130px; }
 }
+
+
 
 
 

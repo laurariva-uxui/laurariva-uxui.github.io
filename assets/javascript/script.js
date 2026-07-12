@@ -1,4 +1,3 @@
-// GRAFICO
 document.addEventListener('DOMContentLoaded', () => {
   const container = document.querySelector('.timeline-container');
   const svg = document.getElementById('timelineSvg');
@@ -25,16 +24,60 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // ========================================================
+  // NUOVO CODICE: FUNZIONE DI LAMPEGGIO JAVASCRIPT
+  // ========================================================
+  let orologioLampeggio = null;
+  let visibile = true;
+
+  function avviaLampeggio() {
+    // Se c'è già un lampeggio attivo, lo resettiamo
+    if (orologioLampeggio) clearInterval(orologioLampeggio);
+
+    orologioLampeggio = setInterval(() => {
+      dots.forEach(dot => {
+        // Facciamo lampeggiare i cerchi SOLO SE non sono aperti (senza popup visibile)
+        if (!dot.classList.contains('is-open')) {
+          dot.style.transition = 'opacity 0.4s ease-in-out';
+          dot.style.opacity = visibile ? '0.4' : '1';
+        } else {
+          dot.style.opacity = '1'; // Se è aperto resta fisso al 100%
+        }
+      });
+      visibile = !visibile;
+    }, 800); // Cambia stato ogni 800 millisecondi (regola il tempo come preferisci)
+  }
+
+  // Avviamo il lampeggio automatico
+  avviaLampeggio();
+  // ========================================================
+
   dots.forEach(dot => {
+    // Quando il mouse passa sopra (hover), forziamo l'opacità a 1 per non farlo sbiadire
+    dot.addEventListener('mouseenter', () => {
+      dot.style.opacity = '1';
+    });
+
+    // Quando il mouse esce, si riallinea al lampeggio
+    dot.addEventListener('mouseleave', () => {
+      if (!dot.classList.contains('is-open')) {
+        dot.style.opacity = visibile ? '1' : '0.4';
+      }
+    });
+
     dot.addEventListener('click', (e) => {
       e.stopPropagation(); 
       const isOpen = dot.classList.contains('is-open');
 
-      dots.forEach(d => d.classList.remove('is-open'));
+      dots.forEach(d => {
+        d.classList.remove('is-open');
+        d.style.opacity = '1'; // Reset opacità al click sugli altri
+      });
       container.classList.remove('is-active');
 
       if (!isOpen) {
         dot.classList.add('is-open');
+        dot.style.opacity = '1';
         container.classList.add('is-active'); 
       }
     });
