@@ -392,12 +392,15 @@ html {
 
 @keyframes softPulse {
   0% {
+    transform: scale(1);
     opacity: 1;
   }
   50% {
-    opacity: 0.75; /* Scende solo un po', per un effetto elegante */
+    transform: scale(1.1); /* Si ingrandisce leggermente */
+    opacity: 0.7;          /* Si sbiadisce */
   }
   100% {
+    transform: scale(1);
     opacity: 1;
   }
 }
@@ -452,17 +455,20 @@ html {
   z-index: 10;
   margin-top: var(--y);
   flex-shrink: 0;
-  transition: transform 0.3s ease, background-color 0.3s ease;
+  
+  /* Modifica questa riga così: mantiene la transizione del colore, 
+     ma lascia il controllo del transform all'animazione */
+  transition: background-color 0.3s ease; 
 
-  // AGGIUNTO: Lampeggio continuo, morbido (dura 2 secondi e si ripete)
-  animation: softPulse 2s infinite ease-in-out;
+  /* Applica l'animazione in modo forzato */
+  animation: softPulse 2s infinite ease-in-out !important;
 
   &.active-dot { background-color: $interactive-default; }
   &.last-dot { background-color: $interactive-disabled; }
 
   &:hover { 
-    animation: none; // AGGIUNTO: Ferma il lampeggio quando il mouse è sopra
-    transform: scale(1.2); 
+    animation: none !important; /* Ferma l'animazione al passaggio del mouse */
+    transform: scale(1.2) !important; /* Ingrandisce sul serio all'hover */
     background-color: $interactive-hover;
     
     .timeline-popup {
@@ -471,16 +477,8 @@ html {
       top: 55px;
     }
   }
-
-  &.is-open {
-    animation: none; // AGGIUNTO: Ferma il lampeggio se il popup è bloccato aperto
-    
-    .timeline-popup {
-      opacity: 1;
-      visibility: visible;
-      top: 55px;
-    }
-  }
+  
+  /* ... resto del tuo codice ... */
 }
 
 .timeline-popup {
