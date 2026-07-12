@@ -446,7 +446,6 @@ html {
   transition: transform 0.3s ease, background-color 0.3s ease;
 
 
-
   &.active-dot { background-color: $interactive-default; }
   &.last-dot { background-color: $interactive-default; }
 
