@@ -447,7 +447,8 @@ html {
 
 
   &.active-dot { background-color: $interactive-default; }
-  &.last-dot { background-color: $interactive-default; }
+&.last-dot, &.active-dot.last-dot { 
+    background-color: $interactive-default !important;}
 
 
   &:hover {
@@ -549,8 +550,8 @@ html {
 
 
   .dot {
-    width: 24px;
-    height: 24px;
+    width: 32px;
+    height: 32px;
     margin-top: calc(var(--y) * 0.6);
   }
 
