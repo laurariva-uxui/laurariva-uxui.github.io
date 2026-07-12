@@ -389,6 +389,21 @@ html {
 
 
 // GRAFICO
+
+/* Animazione super leggera di pulsazione dell'opacità */
+@keyframes softPulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.75; /* Scende solo un po', per un effetto elegante */
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+
 .timeline-container {
   position: relative;
   display: flex;
@@ -440,10 +455,14 @@ html {
   flex-shrink: 0;
   transition: transform 0.3s ease, background-color 0.3s ease;
 
+  // AGGIUNTO: Lampeggio continuo, morbido (dura 2 secondi e si ripete)
+  animation: softPulse 2s infinite ease-in-out;
+
   &.active-dot { background-color: $interactive-default; }
   &.last-dot { background-color: $interactive-disabled; }
 
   &:hover { 
+    animation: none; // AGGIUNTO: Ferma il lampeggio quando il mouse è sopra
     transform: scale(1.2); 
     background-color: $interactive-hover;
     
@@ -454,10 +473,14 @@ html {
     }
   }
 
-  &.is-open .timeline-popup {
-    opacity: 1;
-    visibility: visible;
-    top: 55px;
+  &.is-open {
+    animation: none; // AGGIUNTO: Ferma il lampeggio se il popup è bloccato aperto
+    
+    .timeline-popup {
+      opacity: 1;
+      visibility: visible;
+      top: 55px;
+    }
   }
 }
 
