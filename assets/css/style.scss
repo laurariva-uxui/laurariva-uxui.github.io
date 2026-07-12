@@ -393,19 +393,20 @@ html {
 // ==========================================
 @keyframes softPulse {
   0% {
-    opacity: 1;
+    filter: opacity(100%);
   }
   50% {
-    opacity: 0.35; /* Si sbiadisce quanto basta per far capire che è interattivo */
+    filter: opacity(35%); /* Crea il lampeggio senza toccare la geometria del cerchio */
   }
   100% {
-    opacity: 1;
+    filter: opacity(100%);
   }
 }
 
 // ==========================================
 // 2. GRAFICO PRINCIPALE
 // ==========================================
+
 .timeline-container {
   position: relative;
   display: flex;
@@ -457,8 +458,8 @@ html {
   flex-shrink: 0;
   transition: transform 0.3s ease, background-color 0.3s ease;
 
-  // Applichiamo il lampeggio direttamente a tutti i pallini
-  animation: softPulse 2.5s infinite ease-in-out;
+  // Forza l'esecuzione dell'animazione fin dall'inizio
+  animation: softPulse 2.5s infinite ease-in-out !important;
 
   &.active-dot { 
     background-color: $interactive-default; 
@@ -470,10 +471,10 @@ html {
 
   // Quando l'utente passa il mouse sopra, il cerchio smette di lampeggiare e si ingrandisce
   &:hover { 
-    animation: none; 
+    animation: none !important; 
     transform: scale(1.2); 
     background-color: $interactive-hover;
-    opacity: 1 !important; /* Forza la visibilità al 100% al passaggio del mouse */
+    filter: opacity(100%) !important;
     
     .timeline-popup {
       opacity: 1;
@@ -482,9 +483,10 @@ html {
     }
   }
 
+  // Quando il popup è aperto (click), rimuove il lampeggio per non disturbare la lettura
   &.is-open {
-    animation: none;
-    opacity: 1 !important;
+    animation: none !important;
+    filter: opacity(100%) !important;
     
     .timeline-popup {
       opacity: 1;
@@ -570,8 +572,7 @@ html {
     width: 24px;
     height: 24px;
     margin-top: calc(var(--y) * 0.6); 
-    // Manteniamo l'animazione attiva anche nella visualizzazione mobile
-    animation: softPulse 2s infinite ease-in-out; 
+    animation: softPulse 2.5s infinite ease-in-out !important; 
   }
 
   .timeline-popup {
