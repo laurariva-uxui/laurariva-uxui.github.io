@@ -446,8 +446,20 @@ html {
   transition: transform 0.3s ease, background-color 0.3s ease;
 
 
-  &.active-dot { background-color: $interactive-default; }
-  &.last-dot { background-color: $interactive-default; }
+  // Quando il cerchio è attivo (generico)
+&.active-dot { 
+    background-color: $interactive-default !important; 
+}
+
+// Quando è l'ultimo cerchio (da solo)
+&.last-dot { 
+    background-color: $interactive-default !important; 
+}
+
+// LA COMBINAZIONE DI SICUREZZA: Quando l'ultimo cerchio è ANCHE attivo
+&.active-dot.last-dot { 
+    background-color: $interactive-default !important; 
+}
 
 
   &:hover {

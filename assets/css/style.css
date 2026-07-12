@@ -371,10 +371,13 @@ html {
   transition: transform 0.3s ease, background-color 0.3s ease;
 }
 .dot.active-dot {
-  background-color: #3F6F4A;
+  background-color: #3F6F4A !important;
 }
 .dot.last-dot {
-  background-color: #3F6F4A;
+  background-color: #3F6F4A !important;
+}
+.dot.active-dot.last-dot {
+  background-color: #3F6F4A !important;
 }
 .dot:hover {
   transform: scale(1.2);
