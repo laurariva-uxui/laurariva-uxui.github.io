@@ -388,24 +388,24 @@ html {
 
 
 
-// GRAFICO
-
+// ==========================================
+// 1. ANIMAZIONE (SOLO OPACITÀ PER EVITARE CONFLITTI)
+// ==========================================
 @keyframes softPulse {
   0% {
-    transform: scale(1);
     opacity: 1;
   }
   50% {
-    transform: scale(1.1); /* Si ingrandisce leggermente */
-    opacity: 0.7;          /* Si sbiadisce */
+    opacity: 0.4; /* Si sbiadisce delicatamente a metà */
   }
   100% {
-    transform: scale(1);
     opacity: 1;
   }
 }
 
-
+// ==========================================
+// 2. GRAFICO PRINCIPALE
+// ==========================================
 .timeline-container {
   position: relative;
   display: flex;
@@ -455,21 +455,19 @@ html {
   z-index: 10;
   margin-top: var(--y);
   flex-shrink: 0;
-  
-  /* Modifica questa riga così: mantiene la transizione del colore, 
-     ma lascia il controllo del transform all'animazione */
-  transition: background-color 0.3s ease; 
+  transition: transform 0.3s ease, background-color 0.3s ease;
 
-  /* Applica l'animazione in modo forzato */
-  animation: softPulse 2s infinite ease-in-out !important;
+  // Attiva il lampeggio di base su tutti i cerchi
+  animation: softPulse 2s infinite ease-in-out;
 
   &.active-dot { background-color: $interactive-default; }
   &.last-dot { background-color: $interactive-disabled; }
 
   &:hover { 
-    animation: none !important; /* Ferma l'animazione al passaggio del mouse */
-    transform: scale(1.2) !important; /* Ingrandisce sul serio all'hover */
+    animation: none; /* Ferma il lampeggio quando ci passi sopra */
+    transform: scale(1.2); 
     background-color: $interactive-hover;
+    opacity: 1 !important; /* Forza l'opacità al massimo all'hover */
     
     .timeline-popup {
       opacity: 1;
@@ -477,8 +475,17 @@ html {
       top: 55px;
     }
   }
-  
-  /* ... resto del tuo codice ... */
+
+  &.is-open {
+    animation: none; /* Ferma il lampeggio se il popup è bloccato aperto */
+    opacity: 1 !important;
+    
+    .timeline-popup {
+      opacity: 1;
+      visibility: visible;
+      top: 55px;
+    }
+  }
 }
 
 .timeline-popup {
@@ -537,7 +544,9 @@ html {
   &::before { left: auto; right: 15px; }
 }
 
-// RESPONSIVE
+// ==========================================
+// 3. RESPONSIVE
+// ==========================================
 @media (max-width: 900px) {
   .story-path {
     width: 100%;
@@ -555,6 +564,8 @@ html {
     width: 24px;
     height: 24px;
     margin-top: calc(var(--y) * 0.6); 
+    // Manteniamo l'animazione attiva anche nella visualizzazione mobile
+    animation: softPulse 2s infinite ease-in-out; 
   }
 
   .timeline-popup {
