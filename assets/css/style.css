@@ -373,12 +373,6 @@ html {
 .dot.active-dot {
   background-color: #3F6F4A !important;
 }
-.dot.last-dot {
-  background-color: #3F6F4A !important;
-}
-.dot.active-dot.last-dot {
-  background-color: #3F6F4A !important;
-}
 .dot:hover {
   transform: scale(1.2);
   background-color: #355E3F;
